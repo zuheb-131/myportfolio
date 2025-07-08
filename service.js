@@ -1,13 +1,10 @@
-// service.js
-fetch('assets/data/portfolio.json')
+
+fetch('assets/data/services.json')
   .then(res => res.json())
   .then(data => {
-    const services = data.sections.find(section => section.id === "services").list;
     const container = document.querySelector('#services .row');
-
-    services.forEach((service, index) => {
+    data.services.forEach((service, index) => {
       const delay = (index + 1) * 100;
-
       const col = document.createElement('div');
       col.className = 'col-lg-4 col-md-6';
       col.setAttribute('data-aos', 'fade-up');
@@ -15,9 +12,9 @@ fetch('assets/data/portfolio.json')
 
       col.innerHTML = `
         <div class="service-item">
-          <i class="bi bi-check-circle"></i>
-          <h4>${service}</h4>
-          <p>This is one of my offered services. Feel free to contact me for more info.</p>
+          <i class="${service.icon}"></i>
+          <h4>${service.title}</h4>
+          <p>${service.description}</p>
         </div>
       `;
 
@@ -25,5 +22,5 @@ fetch('assets/data/portfolio.json')
     });
   })
   .catch(err => {
-    console.error("Failed to load services from JSON:", err);
+    console.error("Error loading services.json:", err);
   });
